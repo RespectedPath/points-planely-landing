@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Points Planely - Your Definitive Credit Card Travel Points Resource</title>
+    <style>
+        /* CSS Variables based on Forum branding */
+        :root {
+            --brand-primary: #7abec3;
+            --brand-primary-soft: #a8d4d5;
+            --brand-primary-dark: #5a9ca1;
+            --brand-background: #f5f3f1;
+            --brand-surface: #ffffff;
+            --brand-gray: #d4d0cd;
+            --brand-text-primary: #000000;
+            --brand-text-secondary: #000000;
+            --brand-text-disabled: #9ca3af;
+            --brand-border: #d4d0cd;
+            --brand-shadow: rgba(0, 0, 0, 0.1);
+            --brand-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --brand-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --brand-hover: rgba(122, 190, 195, 0.1);
+        }
+
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--brand-background);
+            color: var(--brand-text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header/Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 0 40px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--brand-primary);
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tagline {
+            font-size: 1.125rem;
+            color: var(--brand-primary-dark);
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .welcome-card {
+            background-color: var(--brand-surface);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--brand-shadow-md);
+            border: 1px solid var(--brand-border);
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .welcome-card h1 {
+            font-size: 2rem;
+            color: var(--brand-primary);
+            margin-bottom: 20px;
+        }
+
+        .welcome-card p {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--brand-text-primary);
+        }
+
+        /* Feature boxes section */
+        .features {
+            padding-bottom: 60px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-box {
+            background-color: var(--brand-surface);
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: var(--brand-shadow-md);
+            border: 1px solid var(--brand-border);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-box.active {
+            cursor: pointer;
+        }
+
+        .feature-box.active:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--brand-shadow-lg);
+            border-color: var(--brand-primary);
+        }
+
+        .feature-box.disabled {
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .feature-box.disabled::after {
+            content: 'Coming Soon';
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background-color: var(--brand-primary);
+            color: white;
+            padding: 5px 40px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            background-color: var(--brand-primary-soft);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .feature-box.disabled .feature-icon {
+            background-color: var(--brand-gray);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--brand-primary);
+        }
+
+        .feature-box.disabled .feature-title {
+            color: var(--brand-text-disabled);
+        }
+
+        .feature-description {
+            font-size: 1rem;
+            color: var(--brand-text-secondary);
+            line-height: 1.6;
+        }
+
+        .feature-box.disabled .feature-description {
+            color: var(--brand-text-disabled);
+        }
+
+        .feature-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            height: 100%;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--brand-surface);
+            border-top: 1px solid var(--brand-border);
+            padding: 30px 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer p {
+            color: var(--brand-text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .feature-grid {
+                gap: 20px;
+            }
+
+            .feature-box {
+                padding: 30px 20px;
+            }
+
+            .feature-title {
+                font-size: 1.25rem;
+            }
+
+            .feature-description {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 40px 0 30px;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .welcome-card {
+                padding: 30px 20px;
+            }
+
+            .welcome-card h1 {
+                font-size: 1.5rem;
+            }
+
+            .welcome-card p {
+                font-size: 1rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .feature-box {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <div class="logo">✈️ Points Planely</div>
+            <div class="tagline">Master the Art of Travel Points</div>
+            
+            <div class="welcome-card">
+                <h1>Welcome to Points Planely!</h1>
+                <p>
+                    We're on a mission to become <strong>the definitive source</strong> for credit card travel points on the internet. 
+                    Right now, you've caught us in our "building phase" – think of it as watching a master chef prep their ingredients 
+                    before creating something extraordinary. Feel free to explore what's available, but fair warning: 
+                    we're still putting the pieces together, so expect some construction dust and the occasional "under development" sign. 
+                    The journey to points mastery starts here!
+                </p>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-grid">
+                <div class="feature-box disabled">
+                    <div class="feature-icon">📝</div>
+                    <h3 class="feature-title">Blog</h3>
+                    <p class="feature-description">
+                        In-depth guides, tips, and strategies for maximizing your travel points and rewards.
+                    </p>
+                </div>
+
+                <div class="feature-box disabled">
+                    <div class="feature-icon">💬</div>
+                    <h3 class="feature-title">Forum</h3>
+                    <p class="feature-description">
+                        Join our community of points enthusiasts to share experiences and learn from experts.
+                    </p>
+                </div>
+
+                <div class="feature-box disabled">
+                    <div class="feature-icon">📚</div>
+                    <h3 class="feature-title">Wiki</h3>
+                    <p class="feature-description">
+                        Comprehensive knowledge base covering everything about credit card points and travel rewards.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Points Planely. Building something amazing, one point at a time.</p>
+    </footer>
+</body>
+</html>
